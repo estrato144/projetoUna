@@ -27,6 +27,7 @@ public class AppEventos {
                 }
                 else {
                     System.out.println("Login ou senha incorretos.");
+                    scanner.close();
                     return;
                 }
 
@@ -35,7 +36,7 @@ public class AppEventos {
                 scanner.nextLine();
                 System.out.println("Cria um novo login:");
                 String newLogin = scanner.nextLine();
-                System.out.println("Crie uma senha:");1
+                System.out.println("Crie uma senha:");
                 String newSenha = scanner.nextLine();
                 System.out.println("Insira sua cidade:");
                 String cidade = scanner.nextLine();
@@ -45,7 +46,7 @@ public class AppEventos {
                 usuarios.put(newLogin, newSenha);
                 try {
                     FileWriter writer = new FileWriter("usuarios.txt", true);
-                    writer.write(newLogin + "," + newSenha + "," + cidade + "," + email + "," + "\n");
+                    writer.write(newLogin + "," + newSenha + "," + cidade + "," + email + "\n");
                     writer.close();
                     System.out.println("Usuario cadastrado com sucesso!");
                 } catch (Exception e) {
@@ -112,13 +113,6 @@ public class AppEventos {
 
         
     } 
-
-    private static void carregarUsuarios(Map<String, String> usuarios) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'carregarUsuarios'");
-    }
-
-
     //carrega os usuarios salvos no arquivo "usuarios.txt"
     private static Map<String, String> carregarUsuarios() {
         Map<String, String> usuarios = new HashMap<>();
@@ -128,7 +122,12 @@ public class AppEventos {
                 Scanner leitor = new Scanner(arquivoUsuarios);
                 while (leitor.hasNextLine()) {
                     String[] dadosUsuario = leitor.nextLine().split(",");
-                    usuarios.put(dadosUsuario[0], dadosUsuario[1]);       
+                    if (dadosUsuario.length >= 2) {
+                        usuarios.put(dadosUsuario[0], dadosUsuario[1]);
+                    } else {
+                        System.out.println("Usuario ou senha incompletos no arquivo usuarios.txt");
+                    }
+                        
                 } 
                 leitor.close();
                 
