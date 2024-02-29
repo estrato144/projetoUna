@@ -1,8 +1,13 @@
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -34,7 +39,7 @@ public class AppEventos {
                 break;
             case 2: 
                 scanner.nextLine();
-                System.out.println("Cria um novo login:");
+                System.out.println("Crie um novo login:");
                 String newLogin = scanner.nextLine();
                 System.out.println("Crie uma senha:");
                 String newSenha = scanner.nextLine();
@@ -58,10 +63,12 @@ public class AppEventos {
         
             default:
                 System.out.println("Opção invalida.");
-                break;
+                scanner.close();
+                return;
+                
         }
+        
         //Seção de menu dos eventos
-        System.out.println("Login efetuado com sucesso.");
         System.out.println("Menu:");
         System.out.println("1.Ver proximos eventos");
         System.out.println("2.Cadastrar novo evento");
@@ -73,15 +80,28 @@ public class AppEventos {
         switch (opcaoMenu) {
             case 1:
                 System.out.println("Proximos eventos:");
-                //colocar aqui como vai ser importado os eventos do arquivo eventos.data
+                 List<Evento> proximosEventos = lerEventosDoArquivo("eventos.data");
+                 for (Evento evento : proximosEventos) {
+                    System.out.println(evento);
+                }
+                
                 break;
             case 2:
                 System.out.println("Digite tipo do evento, exemplo: show,etc");
                 String eventoTipo = scanner.nextLine();
                 System.out.println("Digite o nome do evento");
                 String eventoNome = scanner.nextLine();
-                System.out.println("Local e data do evento, formato: yyyy-dd-MM-dd hh:mm");
-                String eventoData = scanner.nextLine();
+                System.out.println("Local do evento:");
+                String eventoLocal = scanner.nextLine();
+                System.out.println("Data e hora do evento, formato: yyyy-dd-MM-dd hh:mm");
+                String eventoDataStr = scanner.nextLine();
+                System.out.println("Digite a descrição do evento");
+                String eventoDescricao = scanner.nextLine();
+                //converte a string data para LocalDate
+                LocalDateTime eventoData = LocalDateTime.parse(eventoDataStr, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+                //imprementar logica para salvar os eventos(talvez vou utilizar o mesmo usado para salvar os usuarios)
+                //Evento novoEvento = new Evento(eventoNome, eventoTipo, eventoLocal, eventoData); <-- criar novo evento (não funcional ainda)
+
                 break;
             case 3:
                 System.out.println("Eventos passados:");
@@ -96,6 +116,7 @@ public class AppEventos {
                 if (confirmacao.equalsIgnoreCase("s")) {
                     // Adicione aqui a lógica para confirmar a presença do usuário no evento selecionado
                 }
+                break;
 
 
             case 5:
@@ -139,7 +160,8 @@ public class AppEventos {
     //validar o login com login e senha existentes no arquivo usuarios.txt
     private static boolean validarLogin(String login, String senha, Map<String, String> usuarios) {
         return usuarios.containsKey(login) && usuarios.get(login).equals(senha);
-    }    
+    }
+    //metodo para salvar os usuarios 
     private static void salvarUsuarios(Map<String, String> usuarios) {
         try {
             FileWriter writer = new FileWriter("usuarios.txt");
@@ -152,5 +174,17 @@ public class AppEventos {
             System.out.println("Erro ao salvar usuários: " + e.getMessage());
         }
     }
+//metodo para ler arquivo eventos.data   
+    public static List<Evento> lerEventosDoArquivo(String nomeArquivo) {
+    try (FileInputStream fileInputStream = new FileInputStream(nomeArquivo);
+         ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
+        List<Evento> eventos = (List<Evento>) objectInputStream.readObject();
+        return eventos;
+    } catch (IOException | ClassNotFoundException e) {
+        e.printStackTrace();
+        return null;
+    }
+}
+
  
 }

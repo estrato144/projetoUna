@@ -1,3 +1,0 @@
-yasmim,batata
-yasmimm,123
-Pedro,teste321
