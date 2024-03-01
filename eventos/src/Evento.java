@@ -46,12 +46,11 @@ public class Evento {
     }
     
     public String toString(){
-        return "Evento{"+
-                "nome='" + nome + '\'' +
-                ", tipo='" + tipo + '\'' +
-                ", local='" + local + '\'' +
-                ", descricao='" + descricao + '\'' +
-                ", data=" + data +
-                '}';
+        return "Evento"+ "\n" +
+                "Nome do evento: " + nome + "\n" +
+                "Tipo do evento: " + tipo + "\n" +
+                "Local do evento: " + local + "\n" +
+                "Descricao do evento: " + descricao + "\n" +
+                "Data do evento: " + data;
     }
 }

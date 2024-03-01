@@ -1,5 +1,2 @@
 adriano,teste
-pedro,teste
-pedro,,belo horizonte,meuemail
-yasmim,,,
-yayagatinha,123batata,belo horizonte,hdjdjdhhj
+yayagatinha,123batata
