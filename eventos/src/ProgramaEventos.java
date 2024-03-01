@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 
-public class AppEventos {
+public class ProgramaEventos {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         LocalDateTime dataAtual = LocalDateTime.now();
