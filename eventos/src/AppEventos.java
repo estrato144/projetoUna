@@ -117,30 +117,32 @@ public class AppEventos {
                 for (Evento evento : eventosDisponiveis) {
                     if (evento.getData().isAfter(dataAtual)) 
                     System.out.println(evento);                         
-                } }
+                    } 
+                  }
                         
-                System.out.println("Escolha o evento que gostaria de ir! :)");
+                System.out.println("Escolha o evento que gostaria de ir.");
                 String eventoSelecionado = scanner.nextLine();
                 //verificar se evento existe
                 boolean eventoEncontrado = false;
                 for (Evento evento : eventosDisponiveis){
                     if (evento.getData().isAfter(dataAtual) && evento.getNome().equalsIgnoreCase(eventoSelecionado)) {
                         eventoEncontrado = true;
-                        System.out.println("Confirmar presença no evento (x)? [s/n]");
+                        System.out.println("Confirmar presença no evento " + eventoSelecionado +  "?  [s/n]");
                         String confirmacao = scanner.nextLine();
                         if (confirmacao.equalsIgnoreCase("s")) {
-                            System.out.println("Presença confirmada");            
+                            System.out.println("Presença confirmada em " + eventoSelecionado);            
                     }
                     break;
+                }
                 }
                 if (!eventoEncontrado) {
                     System.out.println("Evento não encontrado ou não disponível.");
                     break;
                 }
-                }
                 
             case 5:
                 System.out.println("Eventos que marquei presença:");
+                //System.out.println(eventoSelecionado);
                 //colocar eventos de acordo com o usuario
                 
                 break;
@@ -204,7 +206,7 @@ public class AppEventos {
         System.out.println("1. Ver todos os eventos");
         System.out.println("2. Cadastrar novo evento");
         System.out.println("3. Ver eventos passados");
-        System.out.println("4. Marcar presença em evento disponível");
+        System.out.println("4. Partcipar de evento disponível");
         System.out.println("5. Ver eventos que estou cadastrado");
         System.out.println("6. Sair do programa");
         System.out.print("Escolha uma opção: ");
