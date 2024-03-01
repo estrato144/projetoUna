@@ -96,34 +96,49 @@ public class AppEventos {
                 System.out.println("Eventos passados:");
                 List<Evento> eventosPassados = lerEventosDoArquivo("eventos.txt");
                 Collections.sort(eventosPassados, Comparator.comparing(Evento::getData));
-                for (Evento evento : eventosPassados) {
-                    if (evento.getData().isBefore(dataAtual)) {
+                if (eventosPassados.isEmpty()) {
+                    System.out.println("Não há eventos passados.");
+                }  else { 
+                    for (Evento evento : eventosPassados) {
+                     if (evento.getData().isBefore(dataAtual)) {
                          System.out.println(evento);
-                }
-            }
+                     }
+                    }
+                   }
                 break;
             case 4:
                 System.out.println("Lista de eventos disponiveis:");
                 //colocar eventos que estão pra acontecer ordenado por proximidade de local e hora.
                 List<Evento> eventosDisponiveis = lerEventosDoArquivo("eventos.txt");
                 Collections.sort(eventosDisponiveis, Comparator.comparing(Evento::getData));
+                if (eventosDisponiveis.isEmpty()){
+                    System.out.println("Não há eventos disponiveis.");
+                } else {
                 for (Evento evento : eventosDisponiveis) {
-                    if (evento.getData().isAfter(dataAtual)) {
-                            System.out.println(evento);                          
-                        }
-
-                System.out.println("Escolhe o evento que gostaria de ir! :)");
+                    if (evento.getData().isAfter(dataAtual)) 
+                    System.out.println(evento);                         
+                } }
+                        
+                System.out.println("Escolha o evento que gostaria de ir! :)");
                 String eventoSelecionado = scanner.nextLine();
-                System.out.println("Confirmar presença no evento (x)? [s/n]");
-                String confirmacao = scanner.nextLine();
-                if (confirmacao.equalsIgnoreCase("s")) {
-                    System.out.println("Presença confirmada");
-                    // Adicione aqui a lógica para confirmar a presença do usuário no evento selecionado
+                //verificar se evento existe
+                boolean eventoEncontrado = false;
+                for (Evento evento : eventosDisponiveis){
+                    if (evento.getData().isAfter(dataAtual) && evento.getNome().equalsIgnoreCase(eventoSelecionado)) {
+                        eventoEncontrado = true;
+                        System.out.println("Confirmar presença no evento (x)? [s/n]");
+                        String confirmacao = scanner.nextLine();
+                        if (confirmacao.equalsIgnoreCase("s")) {
+                            System.out.println("Presença confirmada");            
+                    }
+                    break;
                 }
-                break;
-            }
-
-
+                if (!eventoEncontrado) {
+                    System.out.println("Evento não encontrado ou não disponível.");
+                    break;
+                }
+                }
+                
             case 5:
                 System.out.println("Eventos que marquei presença:");
                 //colocar eventos de acordo com o usuario
