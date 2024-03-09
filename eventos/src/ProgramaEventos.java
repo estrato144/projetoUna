@@ -19,6 +19,7 @@ public class ProgramaEventos {
         Scanner scanner = new Scanner(System.in);
         LocalDateTime dataAtual = LocalDateTime.now();
         Map<String, String> usuarios = carregarUsuarios();
+        List<String> eventosConfirmados = new ArrayList<>();
         System.out.println("Seja bem vindo ao EventosAPP");
         System.out.println("1.Já possuo login.");
         System.out.println("2.Criar login.");
@@ -77,7 +78,6 @@ public class ProgramaEventos {
             exibirMenu();
             int opcaoMenu = scanner.nextInt();
             scanner.nextLine(); // Limpar o buffer de entrada
-       
         switch (opcaoMenu) {
             case 1:
                 System.out.println("Todos os eventos:");
@@ -130,22 +130,37 @@ public class ProgramaEventos {
                         System.out.println("Confirmar presença no evento " + eventoSelecionado +  "?  [s/n]");
                         String confirmacao = scanner.nextLine();
                         if (confirmacao.equalsIgnoreCase("s")) {
-                            System.out.println("Presença confirmada em " + eventoSelecionado);            
+                            eventosConfirmados.add(eventoSelecionado);
+                            System.out.println("Presença confirmada em " + eventoSelecionado);
+                            
+                        } 
+                        
+                        else { 
+                            System.out.println("Não foi confirmada sua presença");
+                            eventoSelecionado = null;
+                            break;
+                        }
                     }
-                    break;
                 }
-                }
-                if (!eventoEncontrado) {
+                 if (!eventoEncontrado) {
                     System.out.println("Evento não encontrado ou não disponível.");
                     break;
                 }
-                
-            case 5:
-                System.out.println("Eventos que marquei presença:");
-                //System.out.println(eventoSelecionado);
-                //colocar eventos de acordo com o usuario
-                
                 break;
+                
+                
+            //logica pra mostrar eventos.    
+            case 5:
+            if (!eventosConfirmados.isEmpty()) {
+                System.out.println("Você está cadastrado nos seguintes eventos:");
+                for (String evento : eventosConfirmados) {
+                    System.out.println(evento);
+                }
+            } else {
+                System.out.println("Nenhuma presença confirmada ainda.");
+            }
+            break;
+                
             case 6:
                 //encerrar programa
                 System.out.println("Saindo do programa...");
