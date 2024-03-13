@@ -171,7 +171,6 @@ public class ProgramaEventos {
             System.out.println("Opção invalida.");
                 break;
         }
-        salvarUsuarios(usuarios);
     }
 
         
@@ -202,18 +201,6 @@ public class ProgramaEventos {
     //validar o login com login e senha existentes no arquivo usuarios.txt
     private static boolean validarLogin(String login, String senha, Map<String, String> usuarios) {
         return usuarios.containsKey(login) && usuarios.get(login).equals(senha);
-    }
-    //metodo para salvar os usuarios 
-    private static void salvarUsuarios(Map<String, String> usuarios) {
-        try {
-            FileWriter writer = new FileWriter("usuarios.txt");
-            for (Map.Entry<String, String> entry : usuarios.entrySet()) {
-                writer.write(entry.getKey() + "," + entry.getValue() + "\n");
-            }
-            writer.close();
-        } catch (IOException e) {
-            System.out.println("Erro ao salvar usuários: " + e.getMessage());
-        }
     }
     //menu de eventos
     private static void exibirMenu() {
