@@ -236,6 +236,7 @@ public class ProgramaEventos {
         String eventoLocal = scanner.nextLine();
         System.out.println("Data e hora do evento, formato: yyyy-MM-dd HH:mm");
         String eventoDataStr = scanner.nextLine();
+        //colocar mensagem de erro caso usuario digite fora do formato permitido.
         System.out.println("Digite a descrição do evento");
         String eventoDescricao = scanner.nextLine();
         // Converte a string data para LocalDateTime
