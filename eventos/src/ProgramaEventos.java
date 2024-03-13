@@ -268,9 +268,5 @@ public class ProgramaEventos {
             e.printStackTrace();
         }
         return eventos;
-    }
-//metodo para comparar os eventos com a data atual
-
-
- 
+    } 
 }
