@@ -1,2 +1,2 @@
 # projetoUna
-Projeto da faculdade
+Projeto da faculdade para fazer um programa em java que cadastra eventos e usuarios.
